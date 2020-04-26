@@ -33,10 +33,10 @@ public class CameraScript : MonoBehaviour
 		if (Input.GetKey(KeyCode.S))
 			Camera.main.transform.position = Camera.main.transform.position + (-Camera.main.transform.forward * movementSpeed * Time.deltaTime);
 
-		if (Input.GetKey(KeyCode.Q))
+		if (Input.GetKey(KeyCode.E))
 			Camera.main.transform.position = Camera.main.transform.position + (Camera.main.transform.up * movementSpeed * Time.deltaTime);
 
-		if (Input.GetKey(KeyCode.E))
+		if (Input.GetKey(KeyCode.Q))
 			Camera.main.transform.position = Camera.main.transform.position + (-Camera.main.transform.up * movementSpeed * Time.deltaTime);
 
 		if (Input.GetKey(KeyCode.R))

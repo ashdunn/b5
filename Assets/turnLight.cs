@@ -3,23 +3,22 @@ using System.Collections;
 
 public class turnLight : MonoBehaviour {
 
-	// Use this for initialization
+    // Use this for initialization
 
-	public Light lamp;
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    public Light lamp;
+    void Start () {
+    }
 
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			lamp.enabled = true;
-		}
-	
-	}
+    // Update is called once per frame
+    void FixedUpdate () {
 
-	void OnTriggerEnter (Collider other)
-	{
-			lamp.enabled = false;
-	}
+        if (Input.GetKeyDown (KeyCode.Space)) {
+            lamp.enabled = !lamp.enabled;
+        }
+
+    }
+    // void OnTriggerEnter (Collider other)
+    // {
+    //     lamp.enabled = false;
+    // }
 }
