@@ -11,7 +11,7 @@ Three characters approach each other.  A character will point at each of the oth
 
   - [x] faceAndPoint – orients body toward a specific position, points, then stops pointing after specified time
 
-  - [ ] (IK) Sit down 
+  - [x] (IK) WatchTV - sit down on the sofa toward the TV
 
   - [ ] An attempt was made to use IK to shake hands between two characters, using the script ShakeIK.  However, I was unable to figure out how to activate OnAnimatorIK() and so it did not function and was not included in the behavior tree.
 
