@@ -136,10 +136,11 @@ public class ProjBehaviorTree : MonoBehaviour
 
     protected Node TextOn(String speech, GameObject canvas, Text t)
     {
-        t.text = speech;
+        //t.text = speech;
         return new Sequence
             (
-             new LeafInvoke(() => canvas.GetComponent<CanvasGroup>().alpha = 1),
+            new LeafInvoke(() => t.text = speech),
+            new LeafInvoke(() => canvas.GetComponent<CanvasGroup>().alpha = 1),
              new LeafWait(2000),
              new LeafInvoke(() => canvas.GetComponent<CanvasGroup>().alpha = 0)
             );
@@ -218,7 +219,7 @@ public class ProjBehaviorTree : MonoBehaviour
         return new Sequence (
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partb, 2000), this.TextOn ("You turn off the light", canvasLight, bubbleTextL)),
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partc, 2000), this.TextOn ("You turn on the TV", canvasTV, bubbleTextT)),
-                // new Sequence (this.TextOn ("Hi123123", canvasTV, bubbleTextT)),
+                new Sequence (this.TextOn ("Hi123123", canvasTV, bubbleTextT)),
                 new SequenceParallel (
                     this.WatchTV(parta.GetComponent<BehaviorMecanim>(), TVp1, SofaIK1),
                     new Sequence(this.LightOff(partb.GetComponent<BehaviorMecanim>()), this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)),
