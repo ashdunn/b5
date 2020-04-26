@@ -4,17 +4,15 @@ Three characters approach each other.  A character will point at each of the oth
 (The scene uses a freelook camera with controls WASD, Q, E, R, F, and mouse) 
 
 
-
-- [ ] Implement at least 2 new affordances Not provided in the KADAPT library.
-- [ ] Implement your behavior tree using KADAPT library
-- [ ] Use Inverse Kinematics to create two additional affordances for use in your behavior 
-- [ ] Create a specific control node of your own, and assign appropriate behavior with it
-- [ ] Design a complete Interactive Behavior Tree for your story, same as provided in narrative slides
-
 ### Affordances
-  - [ ] TextOn – creates a speech bubble and fills it with text, appearing for the time specified
-  - [ ] LightOff – goes to a point in front of the light switch, hits the switch to activate the collider and turn off the light, then return
-  - [ ] faceAndPoint – orients body toward a specific position, points, then stops pointing after specified time
+  - [x] TextOn – creates a speech bubble and fills it with text, appearing for the time specified
+
+  - [x] LightOff – goes to a point in front of the light switch, hits the switch to activate the collider and turn off the light, then return
+
+  - [x] faceAndPoint – orients body toward a specific position, points, then stops pointing after specified time
+
+  - [ ] (IK) Sit down 
+
   - [ ] An attempt was made to use IK to shake hands between two characters, using the script ShakeIK.  However, I was unable to figure out how to activate OnAnimatorIK() and so it did not function and was not included in the behavior tree.
 
 ### Control Node Creates
