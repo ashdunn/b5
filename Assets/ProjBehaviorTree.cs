@@ -208,6 +208,14 @@ public class ProjBehaviorTree : MonoBehaviour
 
         Node trigger = new DecoratorLoop (new LeafAssert (act));
 
+        Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().playerinRange);
+
+        Node triggerA = new DecoratorLoop (new LeafAssert (playerinRangeA));
+        Node triggerB = new DecoratorLoop (new LeafAssert (playerinRangeB));
+        Node triggerC = new DecoratorLoop (new LeafAssert (playerinRangeC));
+
         return new Sequence (
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partb, 2000), this.TextOn ("You turn off the light", canvasLight, bubbleTextL)),
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partc, 2000), this.TextOn ("You turn on the TV", canvasTV, bubbleTextT)),
@@ -223,6 +231,9 @@ public class ProjBehaviorTree : MonoBehaviour
                             new Sequence(
                                 this.LightOff(partb.GetComponent<BehaviorMecanim>()),
                                 this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)))))
+
+                
+                
                 );
     }
 
