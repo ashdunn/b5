@@ -103,8 +103,8 @@ public class ProjBehaviorTree : MonoBehaviour
              part.Node_OrientTowards(face),
              // part.Node_HandAnimation("pointing", true),
              part.Node_StartInteraction(hand, lightSwitchIK),
-             new LeafInvoke(() => lamp.enabled = false),
              new LeafWait(500),
+             new LeafInvoke(() => lamp.enabled = false),
              // part.Node_HandAnimation("pointing", false)
              part.Node_StopInteraction(hand)
             );
