@@ -18,14 +18,14 @@ Three characters approach each other.  A character will point at each of the oth
 ### Control Node Creates
 SelectorShuffleBiased – this will attempt to execute a random child node until one succeeds. Different then SelectorShuffle, this will have a 40% chance of not shuffling the child nodes.  This can be used to bias the SelectorShuffle toward the first option.  In this behavior tree, it is used to bias the selection of the first participant as the assigner.
 
-![](img1.png)
+![](Report/tree1.png)
 
 Sequence Parallel is used to allow all three participants to walk to their meeting point at the same time.
 SequenceShuffleBiased is used to pick one of the following sets of assigner, light switcher, and TV switcher, with a bias toward picking the first option
 
 
 
-![](img2.png)
+![](Report/img2.png)
 
 Sequence is used to give an order to the following actions
 
