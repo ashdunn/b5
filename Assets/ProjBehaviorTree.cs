@@ -105,6 +105,7 @@ public class ProjBehaviorTree : MonoBehaviour
         Val<Vector3> face = Val.V (() => lightSwitch.transform.position);
         return new Sequence
             (
+            part.Node_StopInteraction(butt),
              part.Node_GoTo(position),
              part.Node_OrientTowards(face),
              // part.Node_HandAnimation("pointing", true),
