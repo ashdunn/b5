@@ -218,6 +218,7 @@ public class ProjBehaviorTree : MonoBehaviour
         return new Sequence (
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partb, 2000), this.TextOn ("You turn off the light", canvasLight, bubbleTextL)),
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partc, 2000), this.TextOn ("You turn on the TV", canvasTV, bubbleTextT)),
+                // new Sequence (this.TextOn ("Hi123123", canvasTV, bubbleTextT)),
                 new SequenceParallel (
                     this.WatchTV(parta.GetComponent<BehaviorMecanim>(), TVp1, SofaIK1),
                     new Sequence(this.LightOff(partb.GetComponent<BehaviorMecanim>()), this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)),
@@ -229,9 +230,16 @@ public class ProjBehaviorTree : MonoBehaviour
                             trigger,
                             new Sequence(
                                 this.LightOff(partb.GetComponent<BehaviorMecanim>()),
-                                this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3))))),
+                                this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)))))
 
-                new Sequence(triggerA, this.StoryPause())
+
+                // new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                //         new SequenceParallel(
+                //             triggerA,
+                //             new Sequence(this.StoryPause()
+                //                 ))))
+
+                // new Sequence(triggerA, this.StoryPause())
                 
                 );
     }
