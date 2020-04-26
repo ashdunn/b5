@@ -31,6 +31,12 @@ public class ProjBehaviorTree : MonoBehaviour
     public Transform TVp2;
     public Transform TVp3;
 
+    public InteractionObject SofaIK1;
+    public InteractionObject SofaIK2;
+    public InteractionObject SofaIK3;
+
+    public FullBodyBipedEffector butt;
+
     public GameObject canvasLight;
     public GameObject canvasTV;
     public Text bubbleTextL;
@@ -138,12 +144,17 @@ public class ProjBehaviorTree : MonoBehaviour
 
     }
 
-    protected Node WatchTV(BehaviorMecanim part, Transform p)
+    protected Node WatchTV(BehaviorMecanim part, Transform p, InteractionObject s)
     {
         Val<Vector3> tvpos = Val.V (() => TVLookAtPoint.position);
         Val<Vector3> standpos = Val.V (() => p.position);
+        // Val<InteractionObject> sofapos = Val.V (() => s);
         //Val<float> dist = Val.V (() => 2.0f);
-        return new Sequence(part.Node_GoTo (standpos), part.Node_OrientTowards (tvpos));
+        return new Sequence(
+                part.Node_GoTo (standpos),
+                part.Node_OrientTowards (tvpos),
+                part.Node_StartInteraction(butt, s)
+                );
     }
 
     private void updatePos(Val<Vector3> v, GameObject part)
@@ -162,9 +173,9 @@ public class ProjBehaviorTree : MonoBehaviour
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partb, 2000), this.TextOn ("You turn off the light", canvasLight, bubbleTextL)),
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partc, 2000), this.TextOn ("You turn on the TV", canvasTV, bubbleTextT)),
                 new SequenceParallel (
-                    this.WatchTV(parta.GetComponent<BehaviorMecanim>(), TVp1),
-                    new Sequence(this.LightOff(partb.GetComponent<BehaviorMecanim>()), this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3)),
-                    new Sequence(this.TVOnOff(partc.GetComponent<BehaviorMecanim>()), this.WatchTV(partc.GetComponent<BehaviorMecanim>(), TVp2))
+                    this.WatchTV(parta.GetComponent<BehaviorMecanim>(), TVp1, SofaIK1),
+                    new Sequence(this.LightOff(partb.GetComponent<BehaviorMecanim>()), this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)),
+                    new Sequence(this.TVOnOff(partc.GetComponent<BehaviorMecanim>()), this.WatchTV(partc.GetComponent<BehaviorMecanim>(), TVp2, SofaIK2))
                     ),
 
                 new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
@@ -172,7 +183,7 @@ public class ProjBehaviorTree : MonoBehaviour
                             trigger,
                             new Sequence(
                                 this.LightOff(partb.GetComponent<BehaviorMecanim>()),
-                                this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3)))))
+                                this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)))))
                 );
     }
     protected Node pointOthers(GameObject parta, GameObject partb, GameObject partc)
