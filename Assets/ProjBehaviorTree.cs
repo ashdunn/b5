@@ -205,12 +205,11 @@ public class ProjBehaviorTree : MonoBehaviour
 
         //Val<bool> pp = Val.V (() => lamp.enabled);
         Func<bool> act = () => (lamp.enabled);
-
         Node trigger = new DecoratorLoop (new LeafAssert (act));
 
-        Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().playerinRange);
-        Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().playerinRange);
-        Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().QAtrigger);
+        Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().QAtrigger);
+        Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().QAtrigger);
 
         Node triggerA = new DecoratorLoop (new LeafAssert (playerinRangeA));
         Node triggerB = new DecoratorLoop (new LeafAssert (playerinRangeB));
@@ -230,9 +229,9 @@ public class ProjBehaviorTree : MonoBehaviour
                             trigger,
                             new Sequence(
                                 this.LightOff(partb.GetComponent<BehaviorMecanim>()),
-                                this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)))))
+                                this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3))))),
 
-                
+                new Sequence(triggerA, this.StoryPause())
                 
                 );
     }

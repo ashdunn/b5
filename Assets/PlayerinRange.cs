@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerinRange : MonoBehaviour
 {
     public bool playerinRange = false;
+    public bool QAtrigger = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,11 @@ public class PlayerinRange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.P) & playerinRange)
+        {
+            QAtrigger = true;
+        }
+        Debug.Log("PPPP: " + QAtrigger);
         
     }
 
@@ -37,8 +42,10 @@ public class PlayerinRange : MonoBehaviour
         try
         {
             // Debug.Log(other.transform.parent.name);
-            playerinRange = !(other.transform.parent.name == "Player");      
+            playerinRange = !(other.transform.parent.name == "Player");
             Debug.Log(this.transform.parent.name + ": " + playerinRange);
+            QAtrigger = false;
+
         }
         catch
         {}

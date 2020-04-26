@@ -8,7 +8,7 @@ Three characters approach each other.  A character will point at each of the oth
 
 - [ ] Story? After the A (leader),  B (turn off light),C (turn on TV), character finished their task, Player can go to talk with these 3 guys
 
-- [ ] Show Text "Nothing strange happens. NPCs are watching TV......"
+- [ ] Press P to start dialog. Show Text "Nothing strange happens. NPCs are watching TV......"
 
 - [ ] Story continue? Need special event
 
