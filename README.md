@@ -1,7 +1,10 @@
 ## Behavior
 
-Three characters approach each other.  A character will point at each of the other two in turn, assign one of them to turn off the light and the other to turn on the TV.  A speech bubble at the top of the screen will have the assigner character’s words.  The character that is being assigning and what the other two are assigned to will be chosen at random.  Each character will perform their duty, and then proceed to go watch TV.  The user can press spacebar to turn the light back on, which will then cause the character assigned to the light to go turn it back off. 
-(The scene uses a freelook camera with controls WASD, Q, E, R, F, and mouse) 
+Three characters approach each other.  A character will point at each of the other two in turn, assign one of them to turn off the light and the other to turn on the TV.  A speech bubble at the top of the screen will have the assigner character’s words.  The character that is being assigning and what the other two are assigned to will be chosen at random.  Each character will perform their duty, and then proceed to go to sit down on the sofa and watch TV.  
+
+Alternative ending: The user can press spacebar to turn the light back on, which will then cause the character assigned to the light to go turn it back off. 
+
+Camera: The scene uses a freelook camera with controls WASD, Q, E, R, F, and mouse
 
 
 ### Affordances
@@ -13,7 +16,7 @@ Three characters approach each other.  A character will point at each of the oth
 
   - [x] (IK) WatchTV - sit down on the sofa toward the TV
 
-  - [ ] An attempt was made to use IK to shake hands between two characters, using the script ShakeIK.  However, I was unable to figure out how to activate OnAnimatorIK() and so it did not function and was not included in the behavior tree.
+  - [ ] (IK) Light switches
 
 ### Control Node Creates
 SelectorShuffleBiased – this will attempt to execute a random child node until one succeeds. Different then SelectorShuffle, this will have a 40% chance of not shuffling the child nodes.  This can be used to bias the SelectorShuffle toward the first option.  In this behavior tree, it is used to bias the selection of the first participant as the assigner.
