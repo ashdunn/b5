@@ -2,7 +2,36 @@
 
 Three characters approach each other.  A character will point at each of the other two in turn, assign one of them to turn off the light and the other to turn on the TV.  A speech bubble at the top of the screen will have the assigner character’s words.  The character that is being assigning and what the other two are assigned to will be chosen at random.  Each character will perform their duty, and then proceed to go to sit down on the sofa and watch TV.  
 
-- [ ] Human player controls
+### Human player controls and story continued.... (Currently a boring one)
+
+- [x] Click to move
+
+- [ ] Story? After the A (leader), B (turn on TV), C (turn off light) character finished their task, Player can go to talk with these 3 guys
+
+- [ ] Show "Nothing strange happens. NPCs are watching TV......"
+
+- [ ] Story continue? Need special event
+
+### Event trigger
+- [ ] Player hit space s.t. C try to turn off light again. C is standing nereby the light switch.
+
+* Talk to C: "What are you doing here?"
+* C: "IDK what happens. The light is broken, can you help me ask somebody to fix that?"
+
+### Ending 1
+
+- [ ] Ending 1
+
+* Talk to A: "The light bulb is broken, can you help that guy fix it?"
+* A: "Hah? How dare you ask me to do that? "
+* A throw a bomb to you. 
+
+- [ ] Ending 2
+* Talk to B: "The light bulb is broken, can you help that guy fix it?"
+* B: "Alright. I'll take a look at that."
+* B go to the light switch and try to turn on, and then turn off  the light.
+* Disable the space light controller. B and C go back to sofa and watch TV
+
 
 **Alternative ending**: The user can press spacebar to turn the light back on, which will then cause the character assigned to the light to go turn it back off. 
 
