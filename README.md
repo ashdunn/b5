@@ -6,17 +6,17 @@ Three characters approach each other.  A character will point at each of the oth
 
 - [x] Click to move
 
-- [ ] Story? After the A (leader), B (turn on TV), C (turn off light) character finished their task, Player can go to talk with these 3 guys
+- [ ] Story? After the A (leader),  B (turn off light),C (turn on TV), character finished their task, Player can go to talk with these 3 guys
 
-- [ ] Show "Nothing strange happens. NPCs are watching TV......"
+- [ ] Show Text "Nothing strange happens. NPCs are watching TV......"
 
 - [ ] Story continue? Need special event
 
 ### Event trigger
-- [ ] Player hit space s.t. C try to turn off light again. C is standing nereby the light switch.
+- [ ] Player hit space s.t. B try to turn off light again. B is standing nereby the light switch.
 
-* Talk to C: "What are you doing here?"
-* C: "IDK what happens. The light is broken, can you help me ask somebody to fix that?"
+* Talk to B: "What are you doing here?"
+* B: "IDK what happens. The light is broken, can you help me ask somebody to fix that?"
 
 ### Ending 1
 
@@ -27,11 +27,10 @@ Three characters approach each other.  A character will point at each of the oth
 * A throw a bomb to you. 
 
 - [ ] Ending 2
-* Talk to B: "The light bulb is broken, can you help that guy fix it?"
-* B: "Alright. I'll take a look at that."
-* B go to the light switch and try to turn on, and then turn off  the light.
+* Talk to C: "The light bulb is broken, can you help that guy fix it?"
+* C: "Alright. I'll take a look at that."
+* C go to the light switch and try to turn on, and then turn off  the light.
 * Disable the space light controller. B and C go back to sofa and watch TV
-
 
 **Alternative ending**: The user can press spacebar to turn the light back on, which will then cause the character assigned to the light to go turn it back off. 
 

@@ -117,6 +117,7 @@ public class ProjBehaviorTree : MonoBehaviour
             );
     }
 
+
     protected Node TVOnOff(BehaviorMecanim part)
     {
         Val<Vector3> position = Val.V (() => TVTurnStandPoint.position);
@@ -163,8 +164,45 @@ public class ProjBehaviorTree : MonoBehaviour
         part.GetComponent<SteeringController> ().Target = v.Value;
     }
 
+    protected Node StoryPause()
+    {
+        // A, B and C are now sitting on the sofa
+        return new Sequence(
+            new SequenceParallel (this.TextOn ("Nothing strange happens. They are watching TV......", canvasLight, bubbleTextL))
+        );
+    }
+
+    protected Node Ending1()
+    {
+        // You ask A to fix light bulb and he is angry
+        return new Sequence(
+            new SequenceParallel (this.TextOn ("The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
+            new SequenceParallel (this.TextOn ("Hah? How dare you ask me to do that?", canvasLight, bubbleTextL))
+        );
+    }
+    protected Node Ending2(GameObject partc)
+    {
+        Func<bool> act = () => (lamp.enabled);
+        Node trigger = new DecoratorLoop (new LeafAssert (act));
+
+        // You ask A to fix light bulb and he is angry
+        return new Sequence(
+            new SequenceParallel (this.TextOn ("The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
+            new SequenceParallel (this.TextOn ("Alright. I'll take a look at that.", canvasLight, bubbleTextL)),
+
+            new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                    new SequenceParallel(
+                        trigger,
+                        new Sequence(
+                            this.LightOff(partc.GetComponent<BehaviorMecanim>()), this.WatchTV(partc.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)))))
+        );
+    }
+
     protected Node AssignRoles(GameObject parta, GameObject partb, GameObject partc)
     {
+        // A ask B turn off light
+        // A ask C turn on TV
+
         //Val<bool> pp = Val.V (() => lamp.enabled);
         Func<bool> act = () => (lamp.enabled);
 
@@ -187,6 +225,8 @@ public class ProjBehaviorTree : MonoBehaviour
                                 this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)))))
                 );
     }
+
+
     protected Node pointOthers(GameObject parta, GameObject partb, GameObject partc)
     {
         return new SelectorShuffle (
