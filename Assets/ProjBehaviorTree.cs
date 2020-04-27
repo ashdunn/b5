@@ -227,8 +227,7 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
         Node triggerB = new DecoratorLoop (new LeafAssert (playerinRangeB));
         Node triggerC = new DecoratorLoop (new LeafAssert (playerinRangeC));
 
-        return new Sequence (
-                new SequenceParallel (
+        return new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
                             new SequenceParallel(
                                 triggerA,
@@ -255,9 +254,7 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                             )
                                     ))
                 ))
-                )
-                
-                );
+            );
     }
 
     protected Node AssignRoles(GameObject parta, GameObject partb, GameObject partc)
@@ -279,7 +276,7 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
 
         return new Sequence (
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partb, 2000), this.TextOn ("You turn off the light", canvasLight, bubbleTextL)),
-                new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partc, 2000), this.TextOn ("You turn on the TV", canvasTV, bubbleTextT)),
+                new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partc, 2000), this.TextOn ("You turn on the TV", canvasLight, bubbleTextL)),
                 
                 new SequenceParallel (
                     this.WatchTV(parta.GetComponent<BehaviorMecanim>(), TVp1, SofaIK1),
@@ -328,32 +325,15 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
     protected Node pointOthers(GameObject parta, GameObject partb, GameObject partc)
     {
         return new SelectorShuffle (
-                // this.AssignRoles(parta, partb, partc),
-                // this.AssignRoles(parta, partc, partb),
-                // this.AssignRoles(partb, partc, parta),
-                // this.AssignRoles(partb, parta, partc),
-                // this.AssignRoles(partc, parta, partb),
-                // this.AssignRoles(partc, partb, parta)
-                this.Simplify(parta, partb, partc)
+                this.AssignRoles(parta, partb, partc),
+                this.AssignRoles(parta, partc, partb),
+                this.AssignRoles(partb, partc, parta),
+                this.AssignRoles(partb, parta, partc),
+                this.AssignRoles(partc, parta, partb),
+                this.AssignRoles(partc, partb, parta)
                 );
     }
-
-    /*protected Node ST_GoToUpToRadius(BehaviorMecanim part, Transform wanderPoint, float distance, float speed)
-      {
-      Val<Vector3> wanderPosition = Val.V(() => wanderPoint.position);
-    //distance has to be adjusted according to the speed
-    Val<float> dist = Val.V(() => distance + Mathf.Clamp(speed, 1f, 6f) / 3f);
-    Val<float> wanderSpeed = Val.V(() => speed);
-
-    return part.Node_GoToUpToRadius(wanderPosition, dist, wanderSpeed);
-    }*/
-
-    /*protected Node ST_Grab(BehaviorMecanim part, Transform item)
-      {
-      Val<Vector3> itemPosition = Val.V(() => item.position);
-
-      return part.Node_Grab(itemPosition);
-      }*/
+    
 
     protected Node BuildTreeRoot()
     {
@@ -365,22 +345,13 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
         //Val<Vector3> face = Val.V (() => participant3.transform.position);
         Node setup = new Sequence
             (
-             /*
-                new LeafInvoke(() => updatePos(pos1, participant1)),
-                new LeafInvoke(() => updatePos(pos2, participant2)),
-                new LeafInvoke(() => updatePos(pos3, participant3)),*/
+
              new SequenceParallel (
                  part1.Node_GoTo(pos1),
                  part2.Node_GoTo(pos2),
                  part3.Node_GoTo(pos3)),
-
-             /* i would love to know why this freezes them afterwards
-                this.ST_GoToUpToRadius(part1, p1, 2.0f, 4.0f),
-                this.ST_GoToUpToRadius(part2, p1, 2.0f, 4.0f),
-                this.ST_GoToUpToRadius(part3, p1, 2.0f, 4.0f)),*/
-
-
-                 new LeafWait(500),
+             
+             new LeafWait(500),
 
                  this.pointOthers(participant1, participant2, participant3)
 
@@ -389,7 +360,10 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
 
 
 
-        Node root = setup;
+        Node root = new SelectorParallel(
+            setup,
+            this.Simplify(participant1, participant2, participant3)
+            );
 
 
         Val<Vector3> face1 = Val.V(() => participant4.transform.position);
