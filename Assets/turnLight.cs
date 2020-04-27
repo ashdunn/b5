@@ -14,7 +14,7 @@ public class turnLight : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate () {
-        switchinRange = GameObject.Find("Cylinder").GetComponent<PlayerinRange>().switchinRange;
+        switchinRange = GameObject.Find("Cylinder").GetComponent<PlayerinRange>().playerinRange;
         if (Input.GetKeyDown (KeyCode.Space) & switchinRange) {
             lamp.enabled = !lamp.enabled;
         }

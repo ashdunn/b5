@@ -6,8 +6,6 @@ public class PlayerinRange : MonoBehaviour
 {
     public bool playerinRange = false;
 
-    public bool switchinRange = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -23,12 +21,6 @@ public class PlayerinRange : MonoBehaviour
         try
         {
             playerinRange = (other.transform.parent.name == "Player");
-            // Debug.Log(other.transform.parent.name);
-            if (this.transform.parent.name == "Lamp")
-            {
-                switchinRange = true;
-                Debug.Log(this.transform.parent.name + ": " + playerinRange);
-            }
         }
         catch
         {
@@ -39,12 +31,7 @@ public class PlayerinRange : MonoBehaviour
     {
         try
         {
-            if (this.transform.parent.name == "Lamp")
-            {
-                switchinRange = false;
-                Debug.Log(this.transform.parent.name + ": " + switchinRange);
-            }
-            else if (this.transform.parent.name == "Player")
+            if (this.transform.parent.name == "Player")
             {
                 playerinRange = false;
             }

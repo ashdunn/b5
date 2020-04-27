@@ -113,7 +113,7 @@ public class ProjBehaviorTree : MonoBehaviour
              // part.Node_HandAnimation("pointing", true),
              part.Node_StartInteraction(hand, lightSwitchIK),
              new LeafWait(500),
-             new LeafInvoke(() => lamp.enabled = false),
+             new LeafInvoke(() => lamp.enabled = !lamp.enabled),
              // part.Node_HandAnimation("pointing", false)
              part.Node_StopInteraction(hand)
             );
@@ -222,12 +222,14 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
         Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().playerinRange);
         Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().playerinRange);
         Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().playerinRange);
-        Func<bool> switchinRange = () => (lightSwitch.GetComponentInChildren<PlayerinRange>().switchinRange);
+        Func<bool> switchinRange = () => (lightSwitch.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> clicked = () => (Player.GetComponentInChildren<PlayerController>().clicked);
 
         Node triggerA = new DecoratorLoop (new LeafAssert (playerinRangeA));
         Node triggerB = new DecoratorLoop (new LeafAssert (playerinRangeB));
         Node triggerC = new DecoratorLoop (new LeafAssert (playerinRangeC));
         Node triggerSwitch = new DecoratorLoop (new LeafAssert (switchinRange));
+        Node triggerClick = new DecoratorLoop (new LeafAssert (clicked));
 
         return new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
@@ -262,6 +264,15 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                             triggerSwitch,
                             new Sequence(
                                 this.LightOff(Player.GetComponent<BehaviorMecanim>())
+                            )
+                        ))
+                    )),
+                new SequenceParallel (
+                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                        new SequenceParallel(
+                            triggerClick,
+                            new Sequence(
+                                Player.GetComponent<BehaviorMecanim>().Node_GoTo(Player.GetComponentInChildren<PlayerController>().dest)
                             )
                         ))
                     ))
@@ -336,7 +347,9 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
              new SequenceParallel (
                  part1.Node_GoTo(pos1),
                  part2.Node_GoTo(pos2),
-                 part3.Node_GoTo(pos3)),
+                 part3.Node_GoTo(pos3)//,
+                 //Player.GetComponent<BehaviorMecanim>().Node_GoTo(Player.transform.position)
+                 ),
              
              new LeafWait(500),
 
