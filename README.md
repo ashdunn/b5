@@ -9,7 +9,7 @@ Three characters approach each other.  A character will point at each of the oth
 - [x] Walk in front of the light switch to activate
 
 
-### Ending 1
+### Endings
 
 - [x] Ending 1
 
@@ -18,6 +18,7 @@ Three characters approach each other.  A character will point at each of the oth
 - [x] Ending 2: Poor light switcher
 * Walk near the Light bulb, you would switch the light on/off
 * The NPC assigned to turn off the light will go to turn it off off if you turn it on.
+* If you cause him leave the sofa for more than 3 times, he will get angry.
 
 
 **Camera**: The scene uses a freelook camera with controls WASD, Q, E, R, F, and mouse

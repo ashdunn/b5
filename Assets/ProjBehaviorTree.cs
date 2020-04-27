@@ -54,6 +54,8 @@ public class ProjBehaviorTree : MonoBehaviour
     BehaviorMecanim part3;
     public GameObject Player;
 
+    private int angryCount = 0;
+
 
 
     private BehaviorAgent behaviorAgent;
@@ -219,7 +221,7 @@ public class ProjBehaviorTree : MonoBehaviour
             this.TextOn(Role + "Hmmmm.......",canvasTV, bubbleTextT),
             this.TextOn(Role + "How are you?",canvasTV, bubbleTextT),
             this.TextOn(Role + "Cool!",canvasTV, bubbleTextT),
-            this.TextOn(Role + "Go away! Don't boarded me here!",canvasTV, bubbleTextT)
+            this.TextOn(Role + "Nice weather today, isn't it?",canvasTV, bubbleTextT)
         );
     }
 
@@ -243,6 +245,9 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
         Node triggerC = new DecoratorLoop (new LeafAssert (playerinRangeC));
         Node triggerSwitch = new DecoratorLoop (new LeafAssert (switchinRange));
         Node triggerClick = new DecoratorLoop (new LeafAssert (clicked));
+
+        Func<bool> angry = () => (angryCount >= 2);
+        Node triggerAngry = new DecoratorLoop (new LeafAssert (angry));
 
         return new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
@@ -276,11 +281,19 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                 )),
                 new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                            new SequenceParallel(
+                                triggerAngry,
+                                new Sequence(
+                                    // this.Greeting("C: ")
+                                    this.TextOn("HEY!!!!!! STOP!!!!!!",canvasTV, bubbleTextT)
+                            )
+                                    ))
+                )),
+                new SequenceParallel (
+                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
                         new SequenceParallel(
                             triggerSwitch,
-                            new Sequence(
-                                this.LightOff(Player.GetComponent<BehaviorMecanim>())
-                            )
+                            this.NPCLightOff()
                         ))
                     )),
                 new SequenceParallel (
@@ -293,6 +306,13 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                         ))
                     ))
             );
+    }
+
+    protected Node NPCLightOff()
+    {
+        angryCount += 1;
+        Debug.Log(angryCount);
+        return new Sequence(this.LightOff(Player.GetComponent<BehaviorMecanim>()));
     }
 
     protected Node AssignRoles(GameObject parta, GameObject partb, GameObject partc)
