@@ -249,6 +249,8 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
         Func<bool> angry = () => (angryCount >= 2);
         Node triggerAngry = new DecoratorLoop (new LeafAssert (angry));
 
+        Node trigger_preAngry = new DecoratorLoop (new LeafAssert (LightOffRole));
+
         return new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
                             new SequenceParallel(
@@ -293,7 +295,9 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
                         new SequenceParallel(
                             triggerSwitch,
-                            this.NPCLightOff()
+                            new Sequence(this.LightOff(Player.GetComponent<BehaviorMecanim>())),
+                            trigger_preAngry
+                            // this.NPCLightOff()
                         ))
                     )),
                 new SequenceParallel (
@@ -308,12 +312,19 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
             );
     }
 
-    protected Node NPCLightOff()
+    protected bool LightOffRole()
     {
         angryCount += 1;
         Debug.Log(angryCount);
-        return new Sequence(this.LightOff(Player.GetComponent<BehaviorMecanim>()));
+        return true;
     }
+
+    // protected Node NPCLightOff(GameObject partb)
+    // {
+    //     angryCount += 1;
+    //     Debug.Log(angryCount);
+    //     return new Sequence(this.LightOff(partb.GetComponent<BehaviorMecanim>()), this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3));
+    // }
 
     protected Node AssignRoles(GameObject parta, GameObject partb, GameObject partc)
     {
