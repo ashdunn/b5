@@ -5,6 +5,8 @@ Three characters approach each other.  A character will point at each of the oth
 ### Human player controls and story continued.... 
 
 - [x] Click to move the player
+- [x] Walk near NPCs to greet
+- [x] Walk in front of the light switch to activate
 
 
 ### Ending 1
@@ -17,7 +19,6 @@ Three characters approach each other.  A character will point at each of the oth
 * Walk near the Light bulb, you would switch the light on/off
 * The NPC assigned to turn off the light will go to turn it off off if you turn it on.
 
-**Alternative ending**: The user can press spacebar to turn the light back on, which will then cause the character assigned to the light to go turn it back off. 
 
 **Camera**: The scene uses a freelook camera with controls WASD, Q, E, R, F, and mouse
 
@@ -27,7 +28,7 @@ Three characters approach each other.  A character will point at each of the oth
 
   - [x] faceAndPoint – orients body toward a specific position, points, then stops pointing after specified time
 
-  - [x] (IK) WatchTV - sit down on the sofa toward the TV
+  - [x] (IK) WatchTV - sit down on the sofa facing toward the TV
 
   - [x] (IK) Light switches and TV switches – goes to a point in front of the light switch, hits the switch to activate the collider and turn off the light, then return. Note that this is an IK affordance. They will use different pose to switch the light on and off when they walk from different path.
 
