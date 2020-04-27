@@ -236,7 +236,7 @@ public class ProjBehaviorTree : MonoBehaviour
 
         Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().playerinRange);
         Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().playerinRange);
-        Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().playerinRange & (angryCount < 3));
         Func<RunStatus> switchinRange = () => (lightSwitch.GetComponentInChildren<PlayerinRange>().PlayerInRange()?RunStatus.Success:RunStatus.Running);
         Func<bool> clicked = () => (Player.GetComponentInChildren<PlayerController>().clicked);
 
@@ -246,7 +246,7 @@ public class ProjBehaviorTree : MonoBehaviour
         Node triggerSwitch =new LeafInvoke (switchinRange);
         Node triggerClick = new DecoratorLoop (new LeafAssert (clicked));
 
-        Func<bool> angry = () => (angryCount >= 2);
+        Func<bool> angry = () => (angryCount >= 3);
         Node triggerAngry = new DecoratorLoop (new LeafAssert (angry));
 
         Node trigger_preAngry = new LeafAssert (LightOffRole);
@@ -287,7 +287,7 @@ public class ProjBehaviorTree : MonoBehaviour
                                     triggerAngry,
                                     new Sequence(
                                         // this.Greeting("C: ")
-                                        this.TextOn("HEY!!!!!! STOP!!!!!!",canvasTV, bubbleTextT)
+                                        this.TextOn("B: HEY!!!!!! STOP TOUCHING THE SWITCH!!!!!!",canvasTV, bubbleTextT)
                                         )
                                     ))
                             )),
