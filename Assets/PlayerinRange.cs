@@ -24,7 +24,7 @@ public class PlayerinRange : MonoBehaviour
         {
             playerinRange = (other.transform.parent.name == "Player");
             // Debug.Log(other.transform.parent.name);
-            if (this.transform.name == "Switch")
+            if (this.transform.parent.name == "Lamp")
             {
                 switchinRange = true;
                 Debug.Log(this.transform.parent.name + ": " + playerinRange);
@@ -39,7 +39,7 @@ public class PlayerinRange : MonoBehaviour
     {
         try
         {
-            if (this.transform.name == "Switch")
+            if (this.transform.parent.name == "Lamp")
             {
                 switchinRange = false;
                 Debug.Log(this.transform.parent.name + ": " + switchinRange);
