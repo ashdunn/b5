@@ -222,10 +222,12 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
         Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().playerinRange);
         Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().playerinRange);
         Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> switchinRange = () => (lightSwitch.GetComponentInChildren<PlayerinRange>().switchinRange);
 
         Node triggerA = new DecoratorLoop (new LeafAssert (playerinRangeA));
         Node triggerB = new DecoratorLoop (new LeafAssert (playerinRangeB));
         Node triggerC = new DecoratorLoop (new LeafAssert (playerinRangeC));
+        Node triggerSwitch = new DecoratorLoop (new LeafAssert (switchinRange));
 
         return new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
@@ -253,7 +255,16 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                                     this.TextOn("Hi! I'm C",canvasTV, bubbleTextT)
                             )
                                     ))
-                ))
+                )),
+                new SequenceParallel (
+                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                        new SequenceParallel(
+                            triggerSwitch,
+                            new Sequence(
+                                this.LightOff(Player.GetComponent<BehaviorMecanim>())
+                            )
+                        ))
+                    ))
             );
     }
 
@@ -291,34 +302,10 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                                     this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3))    
                             )
                                     ))
-                    // new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                    //         new SequenceParallel(
-                    //             triggerB,
-                    //             new Sequence(
-                    //                 this.TextOn ("Hi123123", canvasTV, bubbleTextT)
-                    //                 )
-                                    
-                    //         )
-                    //                 ))
-                                    
-                    )
 
-                // new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                //         new SequenceParallel(
-                //             new SequenceParallel(
-                //                 trigger,
-                //                 new Sequence(
-                //                     this.LightOff(partb.GetComponent<BehaviorMecanim>()),
-                //                     this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3))
-                //                     ),
-                //             new SequenceParallel(
-                //                 triggerB, 
-                //                 this.TextOn ("Hi123123", canvasTV, bubbleTextT)
-                //                 )
-                //         )
-                //                 ))
-                
-                );
+                )
+
+        );
     }
 
 
