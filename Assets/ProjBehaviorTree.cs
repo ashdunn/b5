@@ -293,12 +293,12 @@ public class ProjBehaviorTree : MonoBehaviour
                             )),
                 new SequenceParallel (
 
-                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                            new SequenceParallel(
+                    new DecoratorLoop (
+                            new Sequence(
                                 triggerSwitch,
                                 new Sequence(this.LightOff(Player.GetComponent<BehaviorMecanim>()), new LeafInvoke(() => this.LightOffRole()))
                                 // this.NPCLightOff()
-                                ))
+                                )
                         )),
                     new SequenceParallel (
                             new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,

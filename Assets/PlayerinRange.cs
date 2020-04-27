@@ -9,7 +9,7 @@ public class PlayerinRange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Time.timeScale = 5;
+        Time.timeScale = 2;
     }
 
     // Update is called once per frame
@@ -29,7 +29,9 @@ public class PlayerinRange : MonoBehaviour
     {
         try
         {
-            //playerinRange = (other.transform.parent.name == "Player");
+            
+            playerinRange = (other.transform.parent.name == "Player");
+            Debug.Log(playerinRange);
             if (other.transform.parent.name == "Player")
                 playerinRange = true;
         }
