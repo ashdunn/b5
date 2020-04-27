@@ -52,6 +52,7 @@ public class ProjBehaviorTree : MonoBehaviour
     BehaviorMecanim part1;
     BehaviorMecanim part2;
     BehaviorMecanim part3;
+    public GameObject Player;
 
 
 
@@ -70,6 +71,7 @@ public class ProjBehaviorTree : MonoBehaviour
         BehaviorManager.Instance.Register (behaviorAgent);
         behaviorAgent.StartBehavior ();
 
+        Player = GameObject.Find("Player");
 
     }
 
@@ -208,6 +210,56 @@ public class ProjBehaviorTree : MonoBehaviour
         );
     }
 
+protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
+    {
+        // A ask B turn off light
+        // A ask C turn on TV
+
+        //Val<bool> pp = Val.V (() => lamp.enabled);
+        Func<bool> act = () => (lamp.enabled);
+        Node trigger = new DecoratorLoop (new LeafAssert (act));
+
+        Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().playerinRange);
+
+        Node triggerA = new DecoratorLoop (new LeafAssert (playerinRangeA));
+        Node triggerB = new DecoratorLoop (new LeafAssert (playerinRangeB));
+        Node triggerC = new DecoratorLoop (new LeafAssert (playerinRangeC));
+
+        return new Sequence (
+                new SequenceParallel (
+                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                            new SequenceParallel(
+                                triggerA,
+                                new Sequence(
+                                    this.TextOn("Hi! I'm A",canvasTV, bubbleTextT)
+                            )
+                                    ))
+                    ),
+                new SequenceParallel (
+                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                            new SequenceParallel(
+                                triggerB,
+                                new Sequence(
+                                    this.TextOn("Hi! I'm B",canvasTV, bubbleTextT)
+                            )
+                                    ))
+                )),
+                new SequenceParallel (
+                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                            new SequenceParallel(
+                                triggerC,
+                                new Sequence(
+                                    this.TextOn("Hi! I'm C",canvasTV, bubbleTextT)
+                            )
+                                    ))
+                ))
+                )
+                
+                );
+    }
+
     protected Node AssignRoles(GameObject parta, GameObject partb, GameObject partc)
     {
         // A ask B turn off light
@@ -276,12 +328,13 @@ public class ProjBehaviorTree : MonoBehaviour
     protected Node pointOthers(GameObject parta, GameObject partb, GameObject partc)
     {
         return new SelectorShuffle (
-                this.AssignRoles(parta, partb, partc),
-                this.AssignRoles(parta, partc, partb),
-                this.AssignRoles(partb, partc, parta),
-                this.AssignRoles(partb, parta, partc),
-                this.AssignRoles(partc, parta, partb),
-                this.AssignRoles(partc, partb, parta)
+                // this.AssignRoles(parta, partb, partc),
+                // this.AssignRoles(parta, partc, partb),
+                // this.AssignRoles(partb, partc, parta),
+                // this.AssignRoles(partb, parta, partc),
+                // this.AssignRoles(partc, parta, partb),
+                // this.AssignRoles(partc, partb, parta)
+                this.Simplify(parta, partb, partc)
                 );
     }
 
