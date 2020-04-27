@@ -9,11 +9,20 @@ public class PlayerinRange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Time.timeScale = 5;
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public bool PlayerInRange()
+    {
+        var p = playerinRange;
+        playerinRange=false;
+        Debug.Log("Hey!");
+        return p;
     }
 
     void OnTriggerEnter(Collider other)
@@ -29,17 +38,17 @@ public class PlayerinRange : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        try
-        {
-            if (other.transform.parent.name == "Player")
-            {
-                playerinRange = false;
-            }
-        }
-        catch
-        {
-        }
-    }
+    // void OnTriggerExit(Collider other)
+    // {
+    //     try
+    //     {
+    //         if (other.transform.parent.name == "Player")
+    //         {
+    //             playerinRange = false;
+    //         }
+    //     }
+    //     catch
+    //     {
+    //     }
+    // }
 }

@@ -109,7 +109,7 @@ public class ProjBehaviorTree : MonoBehaviour
         Val<Vector3> face = Val.V (() => lightSwitch.transform.position);
         return new Sequence
             (
-            part.Node_StopInteraction(butt),
+             part.Node_StopInteraction(butt),
              part.Node_GoTo(position),
              part.Node_OrientTowards(face),
              // part.Node_HandAnimation("pointing", true),
@@ -237,19 +237,19 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
         Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().playerinRange);
         Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().playerinRange);
         Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().playerinRange);
-        Func<bool> switchinRange = () => (lightSwitch.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<RunStatus> switchinRange = () => (lightSwitch.GetComponentInChildren<PlayerinRange>().PlayerInRange()?RunStatus.Success:RunStatus.Running);
         Func<bool> clicked = () => (Player.GetComponentInChildren<PlayerController>().clicked);
 
         Node triggerA = new DecoratorLoop (new LeafAssert (playerinRangeA));
         Node triggerB = new DecoratorLoop (new LeafAssert (playerinRangeB));
         Node triggerC = new DecoratorLoop (new LeafAssert (playerinRangeC));
-        Node triggerSwitch = new DecoratorLoop (new LeafAssert (switchinRange));
+        Node triggerSwitch =new LeafInvoke (switchinRange);
         Node triggerClick = new DecoratorLoop (new LeafAssert (clicked));
 
         Func<bool> angry = () => (angryCount >= 2);
         Node triggerAngry = new DecoratorLoop (new LeafAssert (angry));
 
-        Node trigger_preAngry = new DecoratorLoop (new LeafAssert (LightOffRole));
+        Node trigger_preAngry = new LeafAssert (LightOffRole);
 
         return new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
@@ -292,13 +292,13 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                                     ))
                 )),
                 new SequenceParallel (
-                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                        new SequenceParallel(
+                    new DecoratorLoop (                      
+                        new Sequence(
                             triggerSwitch,
-                            new Sequence(this.LightOff(Player.GetComponent<BehaviorMecanim>())),
-                            trigger_preAngry
+                            trigger_preAngry,
+                            this.LightOff(Player.GetComponent<BehaviorMecanim>())                       
                             // this.NPCLightOff()
-                        ))
+                        )
                     )),
                 new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
