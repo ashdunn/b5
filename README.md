@@ -4,33 +4,20 @@ Three characters approach each other.  A character will point at each of the oth
 
 ### Human player controls and story continued.... (Currently a boring one)
 
-- [x] Click to move
+- [x] Click to move the player
 
-- [ ] Story? After the A (leader),  B (turn off light),C (turn on TV), character finished their task, Player can go to talk with these 3 guys
-
-- [ ] Press P to start dialog. Show Text "Nothing strange happens. NPCs are watching TV......"
-
-- [ ] Story continue? Need special event
-
-### Event trigger
-- [ ] Player hit space s.t. B try to turn off light again. B is standing nereby the light switch.
-
-* Talk to B: "What are you doing here?"
-* B: "IDK what happens. The light is broken, can you help me ask somebody to fix that?"
 
 ### Ending 1
 
 - [ ] Ending 1
 
-* Talk to A: "The light bulb is broken, can you help that guy fix it?"
-* A: "Hah? How dare you ask me to do that? "
-* A throw a bomb to you. 
+* If you do nothing just walk around the NPCs, there will greeting with you
+* Happy ending!
 
 - [ ] Ending 2
-* Talk to C: "The light bulb is broken, can you help that guy fix it?"
-* C: "Alright. I'll take a look at that."
-* C go to the light switch and try to turn on, and then turn off  the light.
-* Disable the space light controller. B and C go back to sofa and watch TV
+* Walk to the Light bulb, press Space to turn it on and off again and again
+* The NPC assigned to turn off the light will try to turn off it off if you turn it on.
+* If you cause him leave the sofa for more than 3 times, he will get angry.
 
 **Alternative ending**: The user can press spacebar to turn the light back on, which will then cause the character assigned to the light to go turn it back off. 
 

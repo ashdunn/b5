@@ -27,10 +27,13 @@ public class PlayerinRange : MonoBehaviour
     {
         try
         {
-            
             playerinRange = (other.transform.parent.name == "Player");     
             // Debug.Log(other.transform.parent.name);
-            Debug.Log(this.transform.parent.name + ": " + playerinRange);
+            if(this.transform.parent.name == "Lamp")
+            {
+                Debug.Log(this.transform.parent.name + ": " + playerinRange);
+            }
+            
         }
         catch
         {}
@@ -43,9 +46,12 @@ public class PlayerinRange : MonoBehaviour
         {
             // Debug.Log(other.transform.parent.name);
             playerinRange = !(other.transform.parent.name == "Player");
-            Debug.Log(this.transform.parent.name + ": " + playerinRange);
+            // Debug.Log(this.transform.parent.name + ": " + playerinRange);
             // QAtrigger = false;
-
+            if(this.transform.parent.name == "Lamp")
+            {
+                Debug.Log(this.transform.parent.name + ": " + playerinRange);
+            }
         }
         catch
         {}
