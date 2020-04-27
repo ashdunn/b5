@@ -7,6 +7,7 @@ public class turnLight : MonoBehaviour {
 
     public Light lamp;
     public bool switchinRange = false;
+    int count = 0;
 
     void Start () 
     {
@@ -17,6 +18,7 @@ public class turnLight : MonoBehaviour {
         switchinRange = GameObject.Find("Cylinder").GetComponent<PlayerinRange>().playerinRange;
         if (Input.GetKeyDown (KeyCode.Space) & switchinRange) {
             lamp.enabled = !lamp.enabled;
+            count = count + 1;
         }
 
     }

@@ -210,6 +210,19 @@ public class ProjBehaviorTree : MonoBehaviour
         );
     }
 
+
+    protected Node Greeting(String Role)
+    {
+        return new SelectorShuffle(
+            this.TextOn(Role + "Oh! Hey~", canvasTV, bubbleTextT),
+            this.TextOn(Role + "They got some really nice TV show, right?",canvasTV, bubbleTextT),
+            this.TextOn(Role + "Hmmmm.......",canvasTV, bubbleTextT),
+            this.TextOn(Role + "How are you?",canvasTV, bubbleTextT),
+            this.TextOn(Role + "Cool!",canvasTV, bubbleTextT),
+            this.TextOn(Role + "Go away! Don't boarded me here!",canvasTV, bubbleTextT)
+        );
+    }
+
 protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
     {
         // A ask B turn off light
@@ -236,7 +249,8 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                             new SequenceParallel(
                                 triggerA,
                                 new Sequence(
-                                    this.TextOn("Hi! I'm A",canvasTV, bubbleTextT)
+                                    this.Greeting("A: ")
+                                    // this.TextOn("Hi! I'm A",canvasTV, bubbleTextT)
                             )
                                     ))
                     ),
@@ -245,7 +259,8 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                             new SequenceParallel(
                                 triggerB,
                                 new Sequence(
-                                    this.TextOn("Hi! I'm B",canvasTV, bubbleTextT)
+                                    this.Greeting("B: ")
+                                    // this.TextOn("Hi! I'm B",canvasTV, bubbleTextT)
                             )
                                     ))
                 )),
@@ -254,7 +269,8 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                             new SequenceParallel(
                                 triggerC,
                                 new Sequence(
-                                    this.TextOn("Hi! I'm C",canvasTV, bubbleTextT)
+                                    this.Greeting("C: ")
+                                    // this.TextOn("Hi! I'm C",canvasTV, bubbleTextT)
                             )
                                     ))
                 )),
