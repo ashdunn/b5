@@ -2,24 +2,23 @@
 
 Three characters approach each other.  A character will point at each of the other two in turn, assign one of them to turn off the light and the other to turn on the TV.  A speech bubble at the top of the screen will have the assigner character’s words.  The character that is being assigning and what the other two are assigned to will be chosen at random.  Each character will perform their duty, and then proceed to go to sit down on the sofa and watch TV.  
 
-### Human player controls and story continued.... (Currently a boring one)
+### Human player controls and story continued.... 
 
 - [x] Click to move the player
+- [x] Walk near NPCs to greet
+- [x] Walk in front of the light switch to activate
 
 
 ### Ending 1
 
-- [ ] Ending 1
+- [x] Ending 1
 
 * If you do nothing just walk around the NPCs, there will greeting with you
-* Happy ending!
 
-- [ ] Ending 2
-* Walk to the Light bulb, press Space to turn it on and off again and again
-* The NPC assigned to turn off the light will try to turn off it off if you turn it on.
-* If you cause him leave the sofa for more than 3 times, he will get angry.
+- [x] Ending 2: Poor light switcher
+* Walk near the Light bulb, you would switch the light on/off
+* The NPC assigned to turn off the light will go to turn it off off if you turn it on.
 
-**Alternative ending**: The user can press spacebar to turn the light back on, which will then cause the character assigned to the light to go turn it back off. 
 
 **Camera**: The scene uses a freelook camera with controls WASD, Q, E, R, F, and mouse
 
@@ -29,9 +28,9 @@ Three characters approach each other.  A character will point at each of the oth
 
   - [x] faceAndPoint – orients body toward a specific position, points, then stops pointing after specified time
 
-  - [x] (IK) WatchTV - sit down on the sofa toward the TV
+  - [x] (IK) WatchTV - sit down on the sofa facing toward the TV
 
-  - [x] (IK) Light switches and TV switches – goes to a point in front of the light switch, hits the switch to activate the collider and turn off the light, then return
+  - [x] (IK) Light switches and TV switches – goes to a point in front of the light switch, hits the switch to activate the collider and turn off the light, then return. Note that this is an IK affordance. They will use different pose to switch the light on and off when they walk from different path.
 
 ### Control Node Creates
 SelectorShuffleBiased – this will attempt to execute a random child node until one succeeds. Different then SelectorShuffle, this will have a 40% chance of not shuffling the child nodes.  This can be used to bias the SelectorShuffle toward the first option.  In this behavior tree, it is used to bias the selection of the first participant as the assigner.
