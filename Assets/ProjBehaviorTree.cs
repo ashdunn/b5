@@ -109,7 +109,7 @@ public class ProjBehaviorTree : MonoBehaviour
         Val<Vector3> face = Val.V (() => lightSwitch.transform.position);
         return new Sequence
             (
-            part.Node_StopInteraction(butt),
+             part.Node_StopInteraction(butt),
              part.Node_GoTo(position),
              part.Node_OrientTowards(face),
              // part.Node_HandAnimation("pointing", true),
@@ -143,8 +143,8 @@ public class ProjBehaviorTree : MonoBehaviour
         //t.text = speech;
         return new Sequence
             (
-            new LeafInvoke(() => t.text = speech),
-            new LeafInvoke(() => canvas.GetComponent<CanvasGroup>().alpha = 1),
+             new LeafInvoke(() => t.text = speech),
+             new LeafInvoke(() => canvas.GetComponent<CanvasGroup>().alpha = 1),
              new LeafWait(2000),
              new LeafInvoke(() => canvas.GetComponent<CanvasGroup>().alpha = 0)
             );
@@ -173,26 +173,26 @@ public class ProjBehaviorTree : MonoBehaviour
     {
         // A, B and C are now sitting on the sofa
         return new Sequence(
-            new SequenceParallel (this.TextOn ("Nothing strange happens. They are watching TV......", canvasLight, bubbleTextL))
-        );
+                new SequenceParallel (this.TextOn ("Nothing strange happens. They are watching TV......", canvasLight, bubbleTextL))
+                );
     }
 
     protected Node TalktoLighter()
     {
         // You ask A to fix light bulb and he is angry
         return new Sequence(
-            new SequenceParallel (this.TextOn ("You: What are you doing here?", canvasLight, bubbleTextL)),
-            new SequenceParallel (this.TextOn ("B: The light seems broken, can you help me ask somebody to fix that?", canvasTV, bubbleTextT))
-        );
+                new SequenceParallel (this.TextOn ("You: What are you doing here?", canvasLight, bubbleTextL)),
+                new SequenceParallel (this.TextOn ("B: The light seems broken, can you help me ask somebody to fix that?", canvasTV, bubbleTextT))
+                );
     }
 
     protected Node Ending1()
     {
         // You ask A to fix light bulb and he is angry
         return new Sequence(
-            new SequenceParallel (this.TextOn ("You: The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
-            new SequenceParallel (this.TextOn ("A: Hah? How dare you ask me to do that?", canvasLight, bubbleTextL))
-        );
+                new SequenceParallel (this.TextOn ("You: The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
+                new SequenceParallel (this.TextOn ("A: Hah? How dare you ask me to do that?", canvasLight, bubbleTextL))
+                );
     }
     protected Node Ending2(GameObject partc)
     {
@@ -201,31 +201,31 @@ public class ProjBehaviorTree : MonoBehaviour
 
         // You ask A to fix light bulb and he is angry
         return new Sequence(
-            new SequenceParallel (this.TextOn ("You: The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
-            new SequenceParallel (this.TextOn ("C: Alright. I'll take a look at that.", canvasLight, bubbleTextL)),
+                new SequenceParallel (this.TextOn ("You: The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
+                new SequenceParallel (this.TextOn ("C: Alright. I'll take a look at that.", canvasLight, bubbleTextL)),
 
-            new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                    new SequenceParallel(
-                        trigger,
-                        new Sequence(
-                            this.LightOff(partc.GetComponent<BehaviorMecanim>()), this.WatchTV(partc.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)))))
-        );
+                new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                        new SequenceParallel(
+                            trigger,
+                            new Sequence(
+                                this.LightOff(partc.GetComponent<BehaviorMecanim>()), this.WatchTV(partc.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)))))
+                );
     }
 
 
     protected Node Greeting(String Role)
     {
         return new SelectorShuffle(
-            this.TextOn(Role + "Oh! Hey~", canvasTV, bubbleTextT),
-            this.TextOn(Role + "They got some really nice TV show, right?",canvasTV, bubbleTextT),
-            this.TextOn(Role + "Hmmmm.......",canvasTV, bubbleTextT),
-            this.TextOn(Role + "How are you?",canvasTV, bubbleTextT),
-            this.TextOn(Role + "Cool!",canvasTV, bubbleTextT),
-            this.TextOn(Role + "Nice weather today, isn't it?",canvasTV, bubbleTextT)
-        );
+                this.TextOn(Role + "Oh! Hey~", canvasTV, bubbleTextT),
+                this.TextOn(Role + "They got some really nice TV show, right?",canvasTV, bubbleTextT),
+                this.TextOn(Role + "Hmmmm.......",canvasTV, bubbleTextT),
+                this.TextOn(Role + "How are you?",canvasTV, bubbleTextT),
+                this.TextOn(Role + "Cool!",canvasTV, bubbleTextT),
+                this.TextOn(Role + "Nice weather today, isn't it?",canvasTV, bubbleTextT)
+                );
     }
 
-protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
+    protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
     {
         // A ask B turn off light
         // A ask C turn on TV
@@ -252,14 +252,14 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
         Node trigger_preAngry = new DecoratorLoop (new LeafAssert (LightOffRole));
 
         return new SequenceParallel (
-                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                            new SequenceParallel(
-                                triggerA,
-                                new Sequence(
-                                    this.Greeting("A: ")
-                                    // this.TextOn("Hi! I'm A",canvasTV, bubbleTextT)
-                            )
-                                    ))
+                new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                        new SequenceParallel(
+                            triggerA,
+                            new Sequence(
+                                this.Greeting("A: ")
+                                // this.TextOn("Hi! I'm A",canvasTV, bubbleTextT)
+                                )
+                            ))
                     ),
                 new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
@@ -268,9 +268,9 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                                 new Sequence(
                                     this.Greeting("B: ")
                                     // this.TextOn("Hi! I'm B",canvasTV, bubbleTextT)
-                            )
-                                    ))
-                )),
+                                    )
+                                ))
+                        )),
                 new SequenceParallel (
                     new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
                             new SequenceParallel(
@@ -278,38 +278,37 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                                 new Sequence(
                                     this.Greeting("C: ")
                                     // this.TextOn("Hi! I'm C",canvasTV, bubbleTextT)
-                            )
+                                    )
+                                ))
+                        )),
+                new SequenceParallel (
+                        new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                                new SequenceParallel(
+                                    triggerAngry,
+                                    new Sequence(
+                                        // this.Greeting("C: ")
+                                        this.TextOn("HEY!!!!!! STOP!!!!!!",canvasTV, bubbleTextT)
+                                        )
                                     ))
-                )),
+                            )),
                 new SequenceParallel (
-                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                            new SequenceParallel(
-                                triggerAngry,
-                                new Sequence(
-                                    // this.Greeting("C: ")
-                                    this.TextOn("HEY!!!!!! STOP!!!!!!",canvasTV, bubbleTextT)
-                            )
+                        new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                                new SequenceParallel(
+                                    triggerSwitch,
+                                    new Sequence(this.LightOff(Player.GetComponent<BehaviorMecanim>()), new LeafInvoke(() => this.LightOffRole()))
+                                    // this.NPCLightOff()
                                     ))
-                )),
+                            )),
                 new SequenceParallel (
-                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                        new SequenceParallel(
-                            triggerSwitch,
-                            new Sequence(this.LightOff(Player.GetComponent<BehaviorMecanim>())),
-                            trigger_preAngry
-                            // this.NPCLightOff()
-                        ))
-                    )),
-                new SequenceParallel (
-                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                        new SequenceParallel(
-                            triggerClick,
-                            new Sequence(
-                                Player.GetComponent<BehaviorMecanim>().Node_GoTo(Player.GetComponentInChildren<PlayerController>().dest)
-                            )
-                        ))
-                    ))
-            );
+                        new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                                new SequenceParallel(
+                                    triggerClick,
+                                    new Sequence(
+                                        Player.GetComponent<BehaviorMecanim>().Node_GoTo(Player.GetComponentInChildren<PlayerController>().dest)
+                                        )
+                                    ))
+                            ))
+                    );
     }
 
     protected bool LightOffRole()
@@ -346,7 +345,7 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
         return new Sequence (
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partb, 2000), this.TextOn ("You turn off the light", canvasLight, bubbleTextL)),
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partc, 2000), this.TextOn ("You turn on the TV", canvasLight, bubbleTextL)),
-                
+
                 new SequenceParallel (
                     this.WatchTV(parta.GetComponent<BehaviorMecanim>(), TVp1, SofaIK1),
                     new Sequence(this.LightOff(partb.GetComponent<BehaviorMecanim>()), this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)),
@@ -357,13 +356,13 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                                 trigger,
                                 new Sequence(
                                     this.LightOff(partb.GetComponent<BehaviorMecanim>()),
-                                    this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3))    
-                            )
-                                    ))
+                                    this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3))
+                                )
+                            ))
 
-                )
+                    )
 
-        );
+                );
     }
 
 
@@ -378,7 +377,7 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                 this.AssignRoles(partc, partb, parta)
                 );
     }
-    
+
 
     protected Node BuildTreeRoot()
     {
@@ -397,20 +396,20 @@ protected Node Simplify(GameObject parta, GameObject partb, GameObject partc)
                  part3.Node_GoTo(pos3)//,
                  //Player.GetComponent<BehaviorMecanim>().Node_GoTo(Player.transform.position)
                  ),
-             
+
              new LeafWait(500),
 
-                 this.pointOthers(participant1, participant2, participant3)
+             this.pointOthers(participant1, participant2, participant3)
 
-                     );
+            );
 
 
 
 
         Node root = new SelectorParallel(
-            setup,
-            this.Simplify(participant1, participant2, participant3)
-            );
+                setup,
+                this.Simplify(participant1, participant2, participant3)
+                );
 
 
         Val<Vector3> face1 = Val.V(() => participant4.transform.position);
