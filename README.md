@@ -15,7 +15,7 @@ Three characters approach each other.  A character will point at each of the oth
 
 * If you do nothing just walk around the NPCs, there will greeting with you
 
-- [x] Ending 2: Poor light switcher: https://drive.google.com/file/d/156XA8OJShqcyIBkMZPJAxyP18Tl42916/view?usp=sharing
+- [x] Ending 2: Poor light switcher: https://drive.google.com/file/d/156XA8OJShqcyIBkMZPJAxyP18Tl42916/view?usp=sharing, https://drive.google.com/file/d/1pb556oIb79lIEKQ23KlWKB3Lg8dyJwmx/view?usp=sharing
 * Walk near the Light bulb, you would switch the light on/off
 * The NPC assigned to turn off the light will go to turn it off off if you turn it on.
 * If you cause him leave the sofa for more than 3 times, he will get angry.
