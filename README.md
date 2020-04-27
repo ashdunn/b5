@@ -5,21 +5,21 @@ Three characters approach each other.  A character will point at each of the oth
 ### Human player controls and story continued.... (Currently a boring one)
 
 - [x] Click to move the player
+- [x] Walk near NPCs to greet
+- [x] Walk in front of the light switch to activate
 
 
 ### Ending 1
 
 - [ ] Ending 1
 
-* If you do nothing just walk around the NPCs, there will greeting with you
+* If you do nothing, just walk near the NPCs and they will greet with you
 * Happy ending!
 
 - [ ] Ending 2
-* Walk to the Light bulb, press Space to turn it on and off again and again
+* Walk in front of the light switch to click it
 * The NPC assigned to turn off the light will try to turn off it off if you turn it on.
 * If you cause him leave the sofa for more than 3 times, he will get angry.
-
-**Alternative ending**: The user can press spacebar to turn the light back on, which will then cause the character assigned to the light to go turn it back off. 
 
 **Camera**: The scene uses a freelook camera with controls WASD, Q, E, R, F, and mouse
 
@@ -29,7 +29,7 @@ Three characters approach each other.  A character will point at each of the oth
 
   - [x] faceAndPoint – orients body toward a specific position, points, then stops pointing after specified time
 
-  - [x] (IK) WatchTV - sit down on the sofa toward the TV
+  - [x] (IK) WatchTV - sit down on the sofa facing toward the TV
 
   - [x] (IK) Light switches and TV switches – goes to a point in front of the light switch, hits the switch to activate the collider and turn off the light, then return
 
