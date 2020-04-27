@@ -20,7 +20,9 @@ public class PlayerinRange : MonoBehaviour
     {
         try
         {
-            playerinRange = (other.transform.parent.name == "Player");
+            //playerinRange = (other.transform.parent.name == "Player");
+            if (other.transform.parent.name == "Player")
+                playerinRange = true;
         }
         catch
         {
@@ -31,7 +33,7 @@ public class PlayerinRange : MonoBehaviour
     {
         try
         {
-            if (this.transform.parent.name == "Player")
+            if (other.transform.parent.name == "Player")
             {
                 playerinRange = false;
             }
