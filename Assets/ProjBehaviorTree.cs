@@ -173,12 +173,21 @@ public class ProjBehaviorTree : MonoBehaviour
         );
     }
 
+    protected Node TalktoLighter()
+    {
+        // You ask A to fix light bulb and he is angry
+        return new Sequence(
+            new SequenceParallel (this.TextOn ("You: What are you doing here?", canvasLight, bubbleTextL)),
+            new SequenceParallel (this.TextOn ("B: The light seems broken, can you help me ask somebody to fix that?", canvasTV, bubbleTextT))
+        );
+    }
+
     protected Node Ending1()
     {
         // You ask A to fix light bulb and he is angry
         return new Sequence(
-            new SequenceParallel (this.TextOn ("The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
-            new SequenceParallel (this.TextOn ("Hah? How dare you ask me to do that?", canvasLight, bubbleTextL))
+            new SequenceParallel (this.TextOn ("You: The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
+            new SequenceParallel (this.TextOn ("A: Hah? How dare you ask me to do that?", canvasLight, bubbleTextL))
         );
     }
     protected Node Ending2(GameObject partc)
@@ -188,8 +197,8 @@ public class ProjBehaviorTree : MonoBehaviour
 
         // You ask A to fix light bulb and he is angry
         return new Sequence(
-            new SequenceParallel (this.TextOn ("The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
-            new SequenceParallel (this.TextOn ("Alright. I'll take a look at that.", canvasLight, bubbleTextL)),
+            new SequenceParallel (this.TextOn ("You: The light bulb is broken, can you help that guy fix it?", canvasTV, bubbleTextT)),
+            new SequenceParallel (this.TextOn ("C: Alright. I'll take a look at that.", canvasLight, bubbleTextL)),
 
             new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
                     new SequenceParallel(
@@ -208,9 +217,9 @@ public class ProjBehaviorTree : MonoBehaviour
         Func<bool> act = () => (lamp.enabled);
         Node trigger = new DecoratorLoop (new LeafAssert (act));
 
-        Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().QAtrigger);
-        Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().QAtrigger);
-        Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().QAtrigger);
+        Func<bool> playerinRangeA = () => (parta.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> playerinRangeB = () => (partb.GetComponentInChildren<PlayerinRange>().playerinRange);
+        Func<bool> playerinRangeC = () => (partc.GetComponentInChildren<PlayerinRange>().playerinRange);
 
         Node triggerA = new DecoratorLoop (new LeafAssert (playerinRangeA));
         Node triggerB = new DecoratorLoop (new LeafAssert (playerinRangeB));
@@ -219,28 +228,46 @@ public class ProjBehaviorTree : MonoBehaviour
         return new Sequence (
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partb, 2000), this.TextOn ("You turn off the light", canvasLight, bubbleTextL)),
                 new SequenceParallel (this.faceAndPoint (parta.GetComponent<BehaviorMecanim>(), partc, 2000), this.TextOn ("You turn on the TV", canvasTV, bubbleTextT)),
-                new Sequence (this.TextOn ("Hi123123", canvasTV, bubbleTextT)),
+                
                 new SequenceParallel (
                     this.WatchTV(parta.GetComponent<BehaviorMecanim>(), TVp1, SofaIK1),
                     new Sequence(this.LightOff(partb.GetComponent<BehaviorMecanim>()), this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)),
-                    new Sequence(this.TVOnOff(partc.GetComponent<BehaviorMecanim>()), this.WatchTV(partc.GetComponent<BehaviorMecanim>(), TVp2, SofaIK2))
-                    ),
-
-                new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
-                        new SequenceParallel(
-                            trigger,
-                            new Sequence(
-                                this.LightOff(partb.GetComponent<BehaviorMecanim>()),
-                                this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3)))))
-
+                    new Sequence(this.TVOnOff(partc.GetComponent<BehaviorMecanim>()), this.WatchTV(partc.GetComponent<BehaviorMecanim>(), TVp2, SofaIK2)),
+                    // new Sequence(this.TextOn ("GOGOGO...", canvasTV, bubbleTextT)),
+                    new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                            new SequenceParallel(
+                                trigger,
+                                new Sequence(
+                                    this.LightOff(partb.GetComponent<BehaviorMecanim>()),
+                                    this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3))    
+                            )
+                                    ))
+                    // new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
+                    //         new SequenceParallel(
+                    //             triggerB,
+                    //             new Sequence(
+                    //                 this.TextOn ("Hi123123", canvasTV, bubbleTextT)
+                    //                 )
+                                    
+                    //         )
+                    //                 ))
+                                    
+                    )
 
                 // new DecoratorLoop (new DecoratorForceStatus (RunStatus.Success,
                 //         new SequenceParallel(
-                //             triggerA,
-                //             new Sequence(this.StoryPause()
-                //                 ))))
-
-                // new Sequence(triggerA, this.StoryPause())
+                //             new SequenceParallel(
+                //                 trigger,
+                //                 new Sequence(
+                //                     this.LightOff(partb.GetComponent<BehaviorMecanim>()),
+                //                     this.WatchTV(partb.GetComponent<BehaviorMecanim>(), TVp3, SofaIK3))
+                //                     ),
+                //             new SequenceParallel(
+                //                 triggerB, 
+                //                 this.TextOn ("Hi123123", canvasTV, bubbleTextT)
+                //                 )
+                //         )
+                //                 ))
                 
                 );
     }

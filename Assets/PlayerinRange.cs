@@ -15,11 +15,11 @@ public class PlayerinRange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) & playerinRange)
-        {
-            QAtrigger = true;
-        }
-        Debug.Log("PPPP: " + QAtrigger);
+        // if (Input.GetKeyDown(KeyCode.P) & playerinRange)
+        // {
+        //     QAtrigger = true;
+        // }
+        // Debug.Log(this.transform.parent.name + ": " + QAtrigger);
         
     }
 
@@ -44,7 +44,7 @@ public class PlayerinRange : MonoBehaviour
             // Debug.Log(other.transform.parent.name);
             playerinRange = !(other.transform.parent.name == "Player");
             Debug.Log(this.transform.parent.name + ": " + playerinRange);
-            QAtrigger = false;
+            // QAtrigger = false;
 
         }
         catch
